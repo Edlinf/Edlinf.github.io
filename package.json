@@ -1,143 +1,61 @@
 {
-  "name": "jekyll-theme-chirpy",
-  "version": "7.3.0",
-  "description": "A minimal, responsive, and feature-rich Jekyll theme for technical writing.",
+  "name": "jekyll-text-theme",
+  "version": "2.2.6",
+  "author": "Tian Qi",
+  "license": "MIT",
+  "keywords": [
+    "jekyll",
+    "jekyll-theme",
+    "jekyll-template"
+  ],
+  "homepage": "https://github.com/kitian616/jekyll-TeXt-theme",
+  "description": "A super customizable Jekyll theme for personal site, team site, blog, project, documentation, etc.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cotes2020/jekyll-theme-chirpy.git"
+    "url": "git+https://github.com/kitian616/jekyll-TeXt-theme.git"
   },
-  "author": "Cotes Chung",
-  "license": "MIT",
-  "since": 2019,
   "bugs": {
-    "url": "https://github.com/cotes2020/jekyll-theme-chirpy/issues"
+    "url": "https://github.com/kitian616/jekyll-TeXt-theme/issues"
   },
-  "homepage": "https://github.com/cotes2020/jekyll-theme-chirpy/",
   "scripts": {
-    "build": "concurrently npm:build:*",
-    "build:css": "node purgecss.js",
-    "build:js": "rollup -c --bundleConfigAsCjs --environment BUILD:production",
-    "watch:js": "rollup -c --bundleConfigAsCjs -w",
-    "lint:scss": "stylelint _sass/**/*.scss",
-    "lint:fix:scss": "npm run lint:scss -- --fix",
-    "test": "npm run lint:scss",
-    "prepare": "husky"
-  },
-  "dependencies": {
-    "@popperjs/core": "^2.11.8",
-    "bootstrap": "^5.3.6"
+    "build": "cross-env JEKYLL_ENV=production bundle exec jekyll build",
+    "serve": "bundle exec jekyll serve -H 0.0.0.0",
+    "Gemfile.lock": "docker run --rm -v \"$PWD\":/usr/src/app -w /usr/src/app ruby:2.6 bundle install",
+    "docker-dev:build-image": "docker-compose -f ./docker/docker-compose.build-image.yml build",
+    "docker-dev:default": "docker-compose -f ./docker/docker-compose.default.yml up",
+    "docker-dev:dev": "docker-compose -f ./docker/docker-compose.dev.yml up",
+    "docker-dev:demo-dev": "docker-compose -f ./docker/docker-compose.demo.yml up",
+    "docker-dev:demo-beta": "cross-env JEKYLL_ENV=beta docker-compose -f ./docker/docker-compose.demo.yml up",
+    "docker-dev:demo-prod": "cross-env JEKYLL_ENV=production docker-compose -f ./docker/docker-compose.demo.yml up",
+    "docker-prod:build": "cross-env JEKYLL_ENV=production docker-compose -f ./docker/docker-compose.prod.yml build",
+    "docker-prod:serve": "cross-env JEKYLL_ENV=production docker-compose -f ./docker/docker-compose.prod.yml up",
+    "default": "bundle exec jekyll serve -H 0.0.0.0 -t",
+    "dev": "bundle exec jekyll serve -H 0.0.0.0 -t --config ./docs/_config.dev.yml",
+    "demo-dev": "bundle exec jekyll serve -H 0.0.0.0 -t --config ./docs/_config.yml",
+    "demo-beta": "cross-env JEKYLL_ENV=beta bundle exec jekyll serve -H 0.0.0.0 -t --config ./docs/_config.yml",
+    "demo-prod": "cross-env JEKYLL_ENV=production bundle exec jekyll serve -H 0.0.0.0 -t --config ./docs/_config.yml",
+    "eslint": "eslint \"_includes/**/*.js\"",
+    "eslint-fix": "eslint \"_includes/**/*.js\" --fix",
+    "stylelint": "stylelint --syntax scss \"_sass/**/*.scss\"",
+    "stylelint-fix": "stylelint --syntax scss \"_sass/**/*.scss\" --fix",
+    "gem-build": "rm -fv jekyll-text-theme-*.gem && gem build jekyll-text-theme.gemspec",
+    "gem-push": "gem push jekyll-text-theme-*.gem"
   },
   "devDependencies": {
-    "@babel/core": "^7.27.1",
-    "@babel/plugin-transform-class-properties": "^7.27.1",
-    "@babel/plugin-transform-private-methods": "^7.27.1",
-    "@babel/preset-env": "^7.27.2",
-    "@commitlint/cli": "^19.8.1",
-    "@commitlint/config-conventional": "^19.8.1",
-    "@rollup/plugin-babel": "^6.0.4",
-    "@rollup/plugin-node-resolve": "^16.0.1",
-    "@rollup/plugin-terser": "^0.4.4",
-    "@semantic-release/changelog": "^6.0.3",
-    "@semantic-release/exec": "^7.1.0",
-    "@semantic-release/git": "^10.0.1",
-    "concurrently": "^9.1.2",
-    "conventional-changelog-conventionalcommits": "^8.0.0",
-    "husky": "^9.1.7",
-    "purgecss": "^7.0.2",
-    "rollup": "^4.41.0",
-    "semantic-release": "^24.2.4",
-    "stylelint": "^16.19.1",
-    "stylelint-config-standard-scss": "^15.0.1"
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "cross-env": "^7.0.0",
+    "eslint": "^6.8.0",
+    "husky": "^4.2.1",
+    "stylelint": "^13.0.0",
+    "stylelint-config-recommended-scss": "^4.2.0",
+    "stylelint-config-standard": "^19.0.0",
+    "stylelint-order": "^4.0.0",
+    "stylelint-scss": "^3.14.2"
   },
-  "prettier": {
-    "trailingComma": "none"
-  },
-  "browserslist": [
-    "last 2 versions",
-    "> 0.2%",
-    "not dead"
-  ],
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ],
-    "rules": {
-      "body-max-line-length": [
-        0,
-        "always"
-      ]
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
-  },
-  "release": {
-    "branches": [
-      "production"
-    ],
-    "plugins": [
-      [
-        "@semantic-release/commit-analyzer",
-        {
-          "preset": "conventionalcommits"
-        }
-      ],
-      [
-        "@semantic-release/release-notes-generator",
-        {
-          "preset": "conventionalcommits",
-          "presetConfig": {
-            "types": [
-              {
-                "type": "feat",
-                "section": "Features"
-              },
-              {
-                "type": "fix",
-                "section": "Bug Fixes"
-              },
-              {
-                "type": "perf",
-                "section": "Improvements"
-              },
-              {
-                "type": "refactor",
-                "section": "Changes",
-                "hidden": true
-              }
-            ]
-          }
-        }
-      ],
-      [
-        "@semantic-release/changelog",
-        {
-          "changelogFile": "docs/CHANGELOG.md",
-          "changelogTitle": "# Changelog"
-        }
-      ],
-      [
-        "@semantic-release/npm",
-        {
-          "npmPublish": false
-        }
-      ],
-      [
-        "@semantic-release/exec",
-        {
-          "prepareCmd": "bash tools/release.sh --prepare",
-          "publishCmd": "bash tools/release.sh"
-        }
-      ],
-      [
-        "@semantic-release/git",
-        {
-          "assets": [
-            "docs",
-            "package.json",
-            "*.gemspec"
-          ],
-          "message": "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}"
-        }
-      ],
-      "@semantic-release/github"
-    ]
   }
 }
