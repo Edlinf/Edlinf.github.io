@@ -1,5 +1,5 @@
 ---
-layout: artical
+layout: article
 title: '猪站今天建立啦！'
 ---
 
