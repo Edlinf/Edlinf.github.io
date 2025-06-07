@@ -20,7 +20,7 @@ text_skin: chocolate # "default" (default), "dark", "forest", "ocean", "chocolat
 highlight_theme: tomorrow # "default" (default), "tomorrow", "tomorrow-night", "tomorrow-night-eighties", "tomorrow-night-blue", "tomorrow-night-bright"
 url     : # the base hostname & protocol for your site e.g. https://www.someone.com
 baseurl : # does not include hostname
-title   : pig page
+title   : 个人🐷页
 description: > # this means to ignore newlines until "Language & timezone"
   Your Site Description
 
@@ -55,8 +55,8 @@ author:
 
 ## => GitHub Repository (if the site is hosted by GitHub)
 ##############################
-repository: user_name/repo_name
-repository_tree: master
+repository: Edlinf/Edlinf.github.io
+repository_tree: main
 
 
 ## => Paths
