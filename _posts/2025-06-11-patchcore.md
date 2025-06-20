@@ -3,7 +3,6 @@ title: (CVPR2022)Towards Total Recall in Industrial Anomaly Detection
 tags: GAN 机器视觉 缺陷检测 CVPR
 ---
 
-# Towards Total Recall in Industrial Anomaly Detection
 ## 模型特点
 PatchCore是一个基于memory bank的异常检测方法，由Roth等人在2022年提出。PatchCore的核心思想是将图像划分为多个小块（patch），并在每个小块上进行异常检测，从而提高了异常检测的精度。
 - 参考了SPADE利用从预训练网络中提取的正常特征的memory bank，PatchCore也使用memory bank，但采用了一种基于邻域的补丁级特征，保留了更多的上下文并纳入了更好的适应性偏差。
