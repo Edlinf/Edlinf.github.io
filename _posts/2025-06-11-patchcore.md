@@ -1,6 +1,6 @@
 ---
 title: (CVPR2022)Towards Total Recall in Industrial Anomaly Detection
-tags: GAN 机器视觉 缺陷检测 CVPR
+tags: [Memory Bank, 机器视觉, 缺陷检测, CVPR]
 ---
 
 ## 模型特点
