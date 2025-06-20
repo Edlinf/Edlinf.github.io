@@ -22,22 +22,20 @@ graph LR
 
 ### 构造memory bank
 定义 $\mathcal{N}_p^{(h,w)}$ 为在位置 $(h,w)$ 的大小为p的领域。$\phi_{i,j}=\phi_j(x_i)$为图像$x_i$在预训练网络$j$层的特征。于是在$(h,w)$的局部感知特征定义为
-$$
-\phi_{i,j}(\mathcal{N}_p^{(h,w)}) = f_{agg}(\{\phi_{i,j}(a,b)|(a,b)\in\mathcal{N}_p^{(h,w)}\})
-$$
+
+$$\phi_{i,j}(\mathcal{N}_p^{(h,w)}) = f_{agg}(\{\phi_{i,j}(a,b)|(a,b)\in\mathcal{N}_p^{(h,w)}\})$$
 在PatchCore中，$f_{agg}$是自适应平均池化函数。加上步长参数$s$，局部感知特征集合为
-$$
-\mathcal{P}_{s,p}(\phi_{i,j}) = \{\phi_{i,j}(\mathcal{N}_p^{(h,w)})|h,w\mod s=0,h<h^*,w<w^*\}
-$$
+
+$$\mathcal{P}_{s,p}(\phi_{i,j}) = \{\phi_{i,j}(\mathcal{N}_p^{(h,w)})|h,w\mod s=0,h<h^*,w<w^*\}$$
 步长一般是1，在消融实验有别的步长。通过输入全部的正常样本，PatchCore Memory Bank $\mathcal{M}$定义为
-$$
-\mathcal{M} = \bigcup_{x_i\in\mathcal{X}}\mathcal{P}_{s,p}(\phi_{j}(x_i))
-$$
+
+$$\mathcal{M} = \bigcup_{x_i\in\mathcal{X}}\mathcal{P}_{s,p}(\phi_{j}(x_i))$$
+
 ### 采样coreset
 随着 $\mathcal{X}$增加，memory bank $\mathcal{X}$会迅速增大，Coreset采样是为了寻找一个子集$\mathcal{S}\sub\mathcal{A}$，使得在$\mathcal{A}$上的问题能通过在$\mathcal{S}$上计算来快速估计。Coreset的选择如下
-$$
-\mathcal{M}^*_C=\argmin_{\mathcal{M}_C\sub\mathcal{M}} \max_{m\in\mathcal{M}} \min_{n\in\mathcal{M}_C} \|m-n\|_2
-$$
+
+$$\mathcal{M}^*_C=\underset{argmin}_{\mathcal{M}_C\subset\mathcal{M}} \max_{m\in\mathcal{M}} \min_{n\in\mathcal{M}_C} \|m-n\|_2$$
+
 可知就是选择$\mathcal{M}^*_C$使得和$\mathcal{M}$的hausdoff距离尽量小，在文章中使用了Johnson-Lindenstrauss 方法。
 
 ## 测试阶段
