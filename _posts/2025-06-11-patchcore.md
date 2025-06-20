@@ -34,7 +34,7 @@ $$\mathcal{P}_{s,p}(\phi_{i,j}) = \{\phi_{i,j}(\mathcal{N}_p^{(h,w)})|h,w\mod s=
 $$\mathcal{M} = \bigcup_{x_i\in\mathcal{X}}\mathcal{P}_{s,p}(\phi_{j}(x_i))$$
 
 ### 采样coreset
-随着 $\mathcal{X}$增加，memory bank $\mathcal{M}$会迅速增大，Coreset采样是为了寻找一个子集$\mathcal{S}\subset\mathcal{M}$，使得在$\mathcal{M}$上的问题能通过在$\mathcal{S}$上计算来快速估计。Coreset的选择如下
+随着$\mathcal{X}$增加，memory bank $\mathcal{M}$会迅速增大，Coreset采样是为了寻找一个子集$\mathcal{S}\subset\mathcal{M}$，使得在$\mathcal{M}$上的问题能通过在$\mathcal{S}$上计算来快速估计。Coreset的选择如下
 
 $$\mathcal{M}^*_C=\arg\min_{\mathcal{M}_C\subset\mathcal{M}} \max_{m\in\mathcal{M}} \min_{n\in\mathcal{M}_C} \|m-n\|_2$$
 
