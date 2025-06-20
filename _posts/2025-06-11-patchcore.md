@@ -34,11 +34,11 @@ $$\mathcal{P}_{s,p}(\phi_{i,j}) = \{\phi_{i,j}(\mathcal{N}_p^{(h,w)})|h,w\mod s=
 $$\mathcal{M} = \bigcup_{x_i\in\mathcal{X}}\mathcal{P}_{s,p}(\phi_{j}(x_i))$$
 
 ### 采样coreset
-随着 $\mathcal{X}$增加，memory bank $\mathcal{X}$会迅速增大，Coreset采样是为了寻找一个子集$\mathcal{S}\subset\mathcal{A}$，使得在$\mathcal{A}$上的问题能通过在$\mathcal{S}$上计算来快速估计。Coreset的选择如下
+随着 $\mathcal{X}$增加，memory bank $\mathcal{M}$会迅速增大，Coreset采样是为了寻找一个子集$\mathcal{S}\subset\mathcal{M}$，使得在$\mathcal{M}$上的问题能通过在$\mathcal{S}$上计算来快速估计。Coreset的选择如下
 
-$$\mathcal{M}^*_C=argmin_{\mathcal{M}_C\subset\mathcal{M}} \max_{m\in\mathcal{M}} \min_{n\in\mathcal{M}_C} \|m-n\|_2$$
+$$\mathcal{M}^*_C=\arg\min_{\mathcal{M}_C\subset\mathcal{M}} \max_{m\in\mathcal{M}} \min_{n\in\mathcal{M}_C} \|m-n\|_2$$
 
-可知就是选择$\mathcal{M}^*_C$使得和$\mathcal{M}$的hausdoff距离尽量小，在文章中使用了Johnson-Lindenstrauss 方法。
+可知就是选择$\mathcal{M}^*_C$使得和$\mathcal{M}$的Hausdorff距离尽量小，在文章中使用了Johnson-Lindenstrauss方法。
 
 ## 测试阶段
 ```mermaid
@@ -47,17 +47,18 @@ graph LR
     B --> C[patch特征] 
     C & D[memory bank] --> E[异常分数]
 ```
-对于待检测样本 $x_{test}$，我们用同样的预训练网络获得局部感知特征集合 $\mathcal{P}(x_{test})=\mathcal{P}_{s,p}(\phi_j(x_{test}))$，然后将其与memory bank $\mathcal{M}$ 中的特征进行比较计算hausdoff距离。
+对于待检测样本 $x_{test}$，我们用同样的预训练网络获得局部感知特征集合 $\mathcal{P}(x_{test})=\mathcal{P}_{s,p}(\phi_j(x_{test}))$，然后将其与memory bank $\mathcal{M}$ 中的特征进行比较计算Hausdorff距离。
 
-$$m^{test,*},m^*=\argmax_{m^{test}\in\mathcal{P}(x_{test})} \argmin_{m\in\mathcal{M}} \|m^{test}-m\|_2$$
+$$m^{test,*},m^*=\arg\max_{m^{test}\in\mathcal{P}(x_{test})} \arg\min_{m\in\mathcal{M}} \|m^{test}-m\|_2$$
 
 距离为
 $$
 s^*=\|m^{test,*}-m^*\|_2
 $$
-为了获得 $s$我们使用放缩$w$来考虑相邻样本的行为，如果memory bank中离待测特征$m^{test,*}$ 最近的特征 $m^*$，离其邻居距离很远，说明是个稀少样本，因此要增加异常分数
+为了获得$s$我们使用放缩$w$来考虑相邻样本的行为，如果memory bank中离待测特征$m^{test,*}$最近的特征$m^*$，离其邻居距离很远，说明是个稀少样本，因此要增加异常分数
+
 $$
-s=(1-\frac{\exp\|m^{test,*}-m^*\|_2}{\Sigma_{m\in\mathcal{N}_b(m^*)}\exp\|m^{test,*}-m\|_2})s^*
+s=\left(1-\frac{\exp\|m^{test,*}-m^*\|_2}{\sum_{m\in\mathcal{N}_b(m^*)}\exp\|m^{test,*}-m\|_2}\right)s^*
 $$
 其中 $\mathcal{N}_b(m^*)$为 $\mathcal{M}$ 中离 $m^*$ 最近的 $b$ 个特征。
 
