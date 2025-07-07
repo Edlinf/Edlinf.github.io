@@ -3,8 +3,6 @@ title: "(WACV2024)EfficientAD: Accurate Visual Anomaly Detection at Millisecond-
 tags: [T-S, 机器视觉, 缺陷检测]
 ---
 
-# EfficientAD: Accurate Visual Anomaly Detection at Millisecond-Level Latencies
-
 ## 模型特点
 
 EfficientAD是一个基于S-T（学生-老师）框架的异常检测方法，由Batzner等人在2024年提出。通过在训练时让学生网络学习老师网络在正常样本上的特征，然后测试时利用异常样本在学生网络和老师网络提取特征的差异实现异常检测。
